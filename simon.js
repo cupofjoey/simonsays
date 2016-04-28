@@ -1,6 +1,4 @@
 var sequence = [];
-addStep(); //game starts with 1 instruction
-console.log(sequence);
 
 var step = 0;
 
@@ -14,12 +12,19 @@ var buttons = [oneButton, twoButton, threeButton, fourButton];
 var compareInput = function(number) {
 	var currentStep = sequence[step];
 	if(number == currentStep) {
-		console.log("Good Job!");
-		addStep();
-		step++;
+		
+		if(step + 1 == sequence.length) {
+			step = 0;
+			addStep();
+		} else {
+			step++;
+		}
+
 	}else{
-		console.log("Nope");
+		
 		step = 0;
+		sequence = [];
+		addStep();
 	}
 	console.log(sequence);
 };	
@@ -36,14 +41,11 @@ var compareInput = function(number) {
 var addStep = function() {
 	sequence.push(getRandomInt(1,4));
 };
-
+addStep(); //game starts with 1 instruction
+console.log(sequence);
 function getRandomInt(min, max) {
 	return Math.floor(Math.random()* (max - min + 1)) + min
 };
-
-
-var dummySteps = [1, 3, 4, 2, 3, 1];
-
 
 var startGame = function(){
 	var step = 0;
@@ -63,6 +65,8 @@ var testFunction = function() {
 	step++;
 };
 
-testButton.addEventListener("click", function(){
-	testFunction();
-});
+// testButton.addEventListener("click", function(){
+// 	testFunction();
+// });
+
+
