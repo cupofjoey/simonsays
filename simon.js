@@ -2,41 +2,43 @@ var sequence = [];
 
 var step = 0;
 
-var oneButton = document.getElementById("one-button");
-var twoButton = document.getElementById("two-button");
-var threeButton = document.getElementById("three-button");
-var fourButton = document.getElementById("four-button");
+var Button = function(domElementId, value, sound) {
+	var rootScope = this;
+	this.domElement = document.getElementById(domElementId);
+	this.value = value;
+	this.sound = sound;
+	this.beep = new Audio(this.sound);
+	this.domElement.addEventListener("click", function(){	
+ 		rootScope.beep.play();
+ 		compareInput(rootScope.value);
+ 	});
+};
+
+var oneButton = new Button("one-button", 1, "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3");
+var twoButton = new Button("two-button", 2, "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3");
+var threeButton = new Button("three-button", 3, "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3");
+var fourButton = new Button("four-button", 4, "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3");
 
 var buttons = [oneButton, twoButton, threeButton, fourButton];
+
+var testBeep = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
 
 var compareInput = function(number) {
 	var currentStep = sequence[step];
 	if(number == currentStep) {
-		
 		if(step + 1 == sequence.length) {
 			step = 0;
 			addStep();
 		} else {
 			step++;
 		}
-
 	}else{
-		
 		step = 0;
 		sequence = [];
 		addStep();
 	}
 	console.log(sequence);
 };	
-
- for (var i = 1; i < 5; i++) {
- 	var button = buttons[i - 1];
- 	(function(num){
- 		button.addEventListener("click", function(){	
- 			compareInput(num);
- 		});
- 	})(i);	
-}
 
 var addStep = function() {
 	sequence.push(getRandomInt(1,4));
