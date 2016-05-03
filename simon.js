@@ -43,29 +43,31 @@ var compareInput = function(number) {
 var addStep = function() {
 	sequence.push(getRandomInt(1,4));
 };
-addStep(); //game starts with 1 instruction
-console.log(sequence);
+
 function getRandomInt(min, max) {
 	return Math.floor(Math.random()* (max - min + 1)) + min
 };
 
 var startGame = function(){
-	var step = 0;
-	var currentStep = dummySteps[step];
+	sequence = [];
+	addStep(); //game starts with 1 instruction
+	console.log(sequence);
+};
 
-}
-
+document.getElementById("start-button").addEventListener("click", function() {
+	startGame();
+});
 
 //startGame();
 
 
-var testButton = document.getElementById("test-button");
-var testFunction = function() {
-	addStep();
-	console.log(sequence);
-	console.log(sequence[step]);
-	step++;
-};
+// var testButton = document.getElementById("test-button");
+// var testFunction = function() {
+// 	addStep();
+// 	console.log(sequence);
+// 	console.log(sequence[step]);
+// 	step++;
+// };
 
 // testButton.addEventListener("click", function(){
 // 	testFunction();
