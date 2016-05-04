@@ -33,6 +33,17 @@ var fourButton = new Button("four-button", 4, "https://s3.amazonaws.com/freecode
 
 var buttons = [oneButton, twoButton, threeButton, fourButton];
 
+
+
+Button.prototype.lightUp = function() {
+	var buttonDom = this.domElement;
+	buttonDom.setAttribute("style", "background-color: #" + this.flashColor);
+	setTimeout(function(){
+		buttonDom.setAttribute("style", "");
+	}, 500);	
+	this.beep.play();
+};
+
 var testBeep = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
 
 var compareInput = function(number) {
@@ -41,6 +52,7 @@ var compareInput = function(number) {
 		if(step + 1 == sequence.length) {
 			step = 0;
 			addStep();
+			lightUpInstructions(sequence);
 		} else {
 			step++;
 		}
@@ -60,10 +72,21 @@ function getRandomInt(min, max) {
 	return Math.floor(Math.random()* (max - min + 1)) + min
 };
 
+var lightUpInstructions = function(sequence) {
+	var clonedSequence = sequence.slice();
+	var instructionInterval = setInterval(function(){
+		var currentButton = buttons[clonedSequence.shift() - 1];
+		currentButton.lightUp();
+		if(!clonedSequence.length) clearInterval(instructionInterval);
+		}, 1000);
+};
+
 var startGame = function(){
 	sequence = [];
+	step = 0;
 	addStep(); //game starts with 1 instruction
 	console.log(sequence);
+	lightUpInstructions(sequence);
 };
 
 document.getElementById("start-button").addEventListener("click", function() {
