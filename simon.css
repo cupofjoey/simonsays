@@ -31,4 +31,8 @@ h1{
   #four-button{
  	background-color: blue;
  }
-
+ #failure-message{
+ 	font-family: Helvetica;
+ 	color: red;
+ 	display: none;
+ }

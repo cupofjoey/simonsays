@@ -33,8 +33,6 @@ var fourButton = new Button("four-button", 4, "https://s3.amazonaws.com/freecode
 
 var buttons = [oneButton, twoButton, threeButton, fourButton];
 
-
-
 Button.prototype.lightUp = function() {
 	var buttonDom = this.domElement;
 	buttonDom.setAttribute("style", "background-color: #" + this.flashColor);
@@ -57,9 +55,12 @@ var compareInput = function(number) {
 			step++;
 		}
 	}else{
-		step = 0;
-		sequence = [];
-		addStep();
+		var failureMessage = document.getElementById("failure-message");
+		failureMessage.setAttribute("style", "display: inline");
+		setTimeout(function(){
+			failureMessage.setAttribute("style", "");
+		}, 1000);
+		startGame();
 	}
 	console.log(sequence);
 };	
