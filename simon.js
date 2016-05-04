@@ -48,10 +48,16 @@ var compareInput = function(number) {
 	var currentStep = sequence[step];
 	if(number == currentStep) {
 		if(step + 1 == sequence.length) {
-			step = 0;
-			addStep();
-			announceRound(sequence);
-			lightUpInstructions(sequence);
+			if (sequence.length == 20) {
+				alert("Good Job, You Win!");
+				startGame();
+				return;
+			} else {
+				step = 0;
+				addStep();
+				announceRound(sequence);
+				lightUpInstructions(sequence);
+			}			
 		} else {
 			step++;
 		}
