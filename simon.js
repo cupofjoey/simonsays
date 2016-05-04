@@ -2,13 +2,25 @@ var sequence = [];
 
 var step = 0;
 
+var colorHack = {
+	1: "6CAD66",
+	2: "F26876",
+	3: "F5F547",
+	4: "6878F2"
+};
+
 var Button = function(domElementId, value, sound) {
 	var rootScope = this;
 	this.domElement = document.getElementById(domElementId);
 	this.value = value;
 	this.sound = sound;
+	this.flashColor = colorHack[this.value];
 	this.beep = new Audio(this.sound);
-	this.domElement.addEventListener("click", function(){	
+	this.domElement.addEventListener("click", function(){
+		rootScope.domElement.setAttribute("style", "background-color: #" + rootScope.flashColor);
+		setTimeout(function(){
+			rootScope.domElement.setAttribute("style", "");
+		}, 500);	
  		rootScope.beep.play();
  		compareInput(rootScope.value);
  	});

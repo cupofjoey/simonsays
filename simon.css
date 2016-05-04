@@ -3,5 +3,32 @@ h1{
 }
 
 #start-button{
-	
+
 }
+
+.box{
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	border: solid 1px black;
+}
+ #simon-wrapper{
+ 	width: 240px;
+ }
+
+ #one-button{
+ 	background-color: green;
+ }
+
+ #two-button{
+ 	background-color: red;
+ }
+
+  #three-button{
+ 	background-color: yellow;
+ }
+
+  #four-button{
+ 	background-color: blue;
+ }
+
