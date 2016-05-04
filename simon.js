@@ -50,6 +50,7 @@ var compareInput = function(number) {
 		if(step + 1 == sequence.length) {
 			step = 0;
 			addStep();
+			announceRound(sequence);
 			lightUpInstructions(sequence);
 		} else {
 			step++;
@@ -82,11 +83,17 @@ var lightUpInstructions = function(sequence) {
 		}, 1000);
 };
 
+var announceRound = function(sequence) {
+	var counter = document.getElementById("round-counter");
+	counter.innerHTML = "Round: " + sequence.length;
+};
+
 var startGame = function(){
 	sequence = [];
 	step = 0;
 	addStep(); //game starts with 1 instruction
 	console.log(sequence);
+	announceRound(sequence);
 	lightUpInstructions(sequence);
 };
 
