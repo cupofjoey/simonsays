@@ -2,6 +2,8 @@ var sequence = [];
 
 var step = 0;
 
+var strict = true;
+
 var colorHack = {
 	1: "6CAD66",
 	2: "F26876",
@@ -42,6 +44,16 @@ Button.prototype.lightUp = function() {
 	this.beep.play();
 };
 
+// $('#strict').click(function() {
+//   if (strict === 'off' && power === 'on') {
+//     $('#strict-light').css('background-color', 'red');
+//     strict = 'on';
+//   } else if (strict === 'on' && power === 'on') {
+//     $('#strict-light').css('background-color', 'black');
+//     strict = 'off';
+//   }
+// })
+
 var testBeep = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
 
 var compareInput = function(number) {
@@ -61,16 +73,28 @@ var compareInput = function(number) {
 		} else {
 			step++;
 		}
-	}else{
-		var failureMessage = document.getElementById("failure-message");
-		failureMessage.setAttribute("style", "display: inline");
-		setTimeout(function(){
-			failureMessage.setAttribute("style", "");
-		}, 1000);
-		startGame();
+	} else {
+		if(strict) {
+			alertFailure();
+			startGame();
+		} else {
+			//Strict Mode is off, keep sequence, repeat steps, alert player
+			step = 0;
+			alertFailure();
+			lightUpInstructions(sequence);
+		}
+		
 	}
 	console.log(sequence);
 };	
+
+var alertFailure = function() {
+	var failureMessage = document.getElementById("failure-message");
+	failureMessage.setAttribute("style", "display: inline");
+	setTimeout(function(){
+		failureMessage.setAttribute("style", "");
+	}, 1000);
+};
 
 var addStep = function() {
 	sequence.push(getRandomInt(1,4));
@@ -105,6 +129,20 @@ var startGame = function(){
 
 document.getElementById("start-button").addEventListener("click", function() {
 	startGame();
+});
+
+var toggleStrict = function(){
+	if(strict) {
+		strict = false;
+		alert("Strict Off");
+	} else {
+		strict = true;
+		alert("Strict On");
+	}
+};
+
+document.getElementById("strict-button").addEventListener("click", function(){
+	toggleStrict();
 });
 
 //startGame();
